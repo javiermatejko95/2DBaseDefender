@@ -26,7 +26,7 @@ public class WavesManager : MonoBehaviour
     #endregion
 
     #region ACTIONS
-    private Action onEndGame = null;
+    private Action onWin = null;
     #endregion
 
     #region UNITY_CALLS
@@ -37,20 +37,49 @@ public class WavesManager : MonoBehaviour
     #endregion
 
     #region INIT
-    public void Init()
+    public void Init(Action onWin)
     {
+        this.onWin = onWin;
+
         timer.Init(spawnRate, SpawnEnemy);
 
         barricade = Barricade.instance;
 
-        //PauseManager.instance.AddCallbackOnChangeState(ChangeEnemiesState);
-        PauseManager.instance.AddCallbackOnChangeState(ChangeSpawningState);
+        PauseManager.instance.AddCallbackOnPause(ChangeSpawningState);
     }
     #endregion
 
     #region PUBLIC_METHODS
     public void StartSpawning()
     {        
+        Spawn();
+    }
+
+    public void RestartSpawning()
+    {
+        currentWave = 0;
+
+        for(int i = 0; i < enemies.Count; i++)
+        {
+            if(enemies[i] != null)
+            {
+                enemies[i].Toggle(false);
+                enemies[i].ForceDestroy();
+            }
+        }
+
+        //List<EnemyController> aux = new List<EnemyController>(enemies);
+
+        //for(int i = 0; i < aux.Count; i++)
+        //{
+        //    if(aux[i] != null)
+        //    {
+        //        aux[i].ForceDestroy();
+        //    }
+        //}
+
+        enemies.Clear();
+
         Spawn();
     }
     #endregion
@@ -113,15 +142,15 @@ public class WavesManager : MonoBehaviour
         {
             if(currentWave >= wavesData.Length - 1)
             {
-                Debug.Log("GANASTE!");
+                onWin?.Invoke();
             }
             else
             {
                 enemiesKilled = 0;
-                enemies.Clear();
                 currentWave++;
+                enemies.Clear();
                 Spawn();
-            }
+            }            
         }
     }
 

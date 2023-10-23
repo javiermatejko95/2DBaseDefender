@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WeaponController weaponController = null;
     [SerializeField] private PlayerController playerController = null;
     [SerializeField] private PauseManager pauseManager = null;
+    [SerializeField] private FeedbackManager feedbackManager = null;
+
+    [Space, Header("UI")]
+    [SerializeField] private Button buttonStart = null;
     #endregion
 
     #region UNITY_CALLS
@@ -17,18 +22,36 @@ public class GameManager : MonoBehaviour
     {
         barricade.Initialize(LoseGame);
         pauseManager.Init();
-        wavesManager.Init();
+        wavesManager.Init(WinGame);
         playerController.Init();
         weaponController.Init();
+        feedbackManager.Init(RestartGame);
 
-        StartGame();
+        buttonStart.onClick.AddListener(() =>
+        {
+            buttonStart.gameObject.SetActive(false);
+            pauseManager.SetCanPause(true);
+            pauseManager.SetPause(false);
+            StartGame();
+        });
+
+        pauseManager.SetCanPause(false);
+        pauseManager.SetPause(true);
     }
     #endregion
 
     #region PRIVATE_METHODS
     private void StartGame()
     {
+        pauseManager.SetCanPause(true);
         wavesManager.StartSpawning();
+    }
+
+    private void RestartGame()
+    {
+        wavesManager.RestartSpawning();
+        pauseManager.SetCanPause(true);
+        pauseManager.SetPause(false);
     }
 
     private void NextRound()
@@ -36,18 +59,25 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void EndGame()
+    private void EndGame(bool status)
     {
-        PauseManager.instance.CallChangeState(false);
+        pauseManager.SetCanPause(false);
+        pauseManager.SetPause(true);
 
-        //wavesManager.StopSpawning();
-        //wavesManager.StopEnemies();
+        feedbackManager.SetHasWon(status);
+        feedbackManager.Toggle(true);
     }
 
     private void LoseGame()
     {
-        EndGame();        
+        EndGame(false);
         Debug.Log("PERDISTES WEI");
+    }
+
+    private void WinGame()
+    {
+        EndGame(true);
+        Debug.Log("GANASTES WEI");
     }
     #endregion
 }

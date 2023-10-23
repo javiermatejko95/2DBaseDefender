@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
 
         attackTimer.Init(attackRate, Attack);
 
-        PauseManager.instance.AddCallbackOnChangeState(ChangeState);
+        PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
     #endregion
 
@@ -73,9 +73,15 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage()
     {
         onDeath?.Invoke();
-        PauseManager.instance.RemoveCallbackOnChangeState(ChangeState);
+        ForceDestroy();
+    }
+
+    public void ForceDestroy()
+    {
+        PauseManager.instance.RemoveCallbackOnPause(ChangeState);
         Destroy(gameObject);
     }
+
     public void ChangeState(bool state)
     {
         canMove = !state;
@@ -117,11 +123,9 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()
     {
-        barricade.TakeDamage(attackDamage);
-
         attackTimer.ToggleTimer(canAttack);
-    }
 
-    
+        barricade.TakeDamage(attackDamage);
+    }    
     #endregion
 }

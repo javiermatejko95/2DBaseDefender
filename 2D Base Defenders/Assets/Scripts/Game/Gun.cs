@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
 
         UpdateAmmoText();
 
-        PauseManager.instance.AddCallbackOnChangeState(ChangeState);
+        PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
     #endregion
 

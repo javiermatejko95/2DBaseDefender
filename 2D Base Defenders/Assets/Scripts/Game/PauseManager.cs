@@ -19,8 +19,9 @@ public class PauseManager : MonoBehaviour
 
     #region PRIVATE_FIELDS
     private bool isOnPause = false;
+    private bool canPause = false;
 
-    private Action<bool> onChangeState = null;
+    private Action<bool> onPause = null;
     #endregion
 
     #region INIT
@@ -29,6 +30,7 @@ public class PauseManager : MonoBehaviour
         instance = this;
 
         isOnPause = false;
+        canPause = true;
 
         ChangeState(isOnPause);
     }
@@ -37,6 +39,11 @@ public class PauseManager : MonoBehaviour
     #region UNITY_CALLS
     private void Update()
     {
+        if(!canPause)
+        {
+            return;
+        }
+
         if(Input.GetKeyDown(KeyCode.P))
         {
             isOnPause = !isOnPause;
@@ -46,19 +53,24 @@ public class PauseManager : MonoBehaviour
     #endregion
 
     #region PUBLIC_METHODS
-    public void AddCallbackOnChangeState(Action<bool> onChangeState)
+    public void AddCallbackOnPause(Action<bool> onPause)
     {
-        this.onChangeState += onChangeState;
+        this.onPause += onPause;
     }
 
-    public void RemoveCallbackOnChangeState(Action<bool> onChangeState)
+    public void RemoveCallbackOnPause(Action<bool> onPause)
     {
-        this.onChangeState -= onChangeState;
+        this.onPause -= onPause;
     }
 
-    public void CallChangeState(bool state)
+    public void SetPause(bool state)
     {
-        onChangeState?.Invoke(state);
+        onPause?.Invoke(state);
+    }
+
+    public void SetCanPause(bool state)
+    {
+        canPause = state;
     }
     #endregion
 
@@ -66,7 +78,7 @@ public class PauseManager : MonoBehaviour
     private void ChangeState(bool state)
     {
         menuPause.SetActive(state);
-        onChangeState?.Invoke(state);
+        onPause?.Invoke(state);
     }
     #endregion
 }

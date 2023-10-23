@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         canMove = true;
 
-        PauseManager.instance.AddCallbackOnChangeState(SetCanMove);
+        PauseManager.instance.AddCallbackOnPause(SetCanMove);
     }
     #endregion
 
@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if(!canMove)
         {
+            rigidbody2D.velocity = new Vector2(0f, 0f);
             moveDirection = new Vector2(0f, 0f);
         }
     }

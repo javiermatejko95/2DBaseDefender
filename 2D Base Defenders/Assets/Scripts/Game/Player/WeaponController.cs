@@ -18,7 +18,7 @@ public class WeaponController : MonoBehaviour
         gun.Init();
         canShoot = true;
 
-        PauseManager.instance.AddCallbackOnChangeState(ChangeState);
+        PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
     #endregion
 
