@@ -9,12 +9,15 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection = new Vector3();
 
     private bool canMove = false;
+
+    private Animator anim = null;
     #endregion
 
     #region INIT
     public void Init()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         canMove = true;
 
         PauseManager.instance.AddCallbackOnPause(SetCanMove);
@@ -69,7 +72,16 @@ public class PlayerController : MonoBehaviour
             moveX = +1f;
         }
 
-        return new Vector3(moveX, moveY).normalized;
+        bool isIdle = moveX == 0f && moveY == 0f;
+
+        Vector3 moveDir = new Vector3(moveX, moveY).normalized;
+
+        anim.SetFloat("horizontalMovement", moveDir.x);
+        anim.SetFloat("verticalMovement", moveDir.y);
+
+        anim.SetBool("isMoving", !isIdle);
+
+        return moveDir;
     }
 
     private void SetCanMove(bool state)

@@ -6,6 +6,7 @@ public class WeaponController : MonoBehaviour
 {
     #region EXPOSED_FIELDS
     [SerializeField] private Gun gun = null;
+    [SerializeField] private Transform shootingPosition = null;
     #endregion
 
     #region PRIVATE_FIELDS
@@ -35,10 +36,10 @@ public class WeaponController : MonoBehaviour
             Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPos.z = 0f;
 
-            Vector3 direction = (targetPos - transform.position).normalized;
+            Vector3 direction = (targetPos - shootingPosition.position).normalized;
 
-            gun.Shoot(transform.position, direction);
-            DrawLine(transform.position, targetPos);
+            gun.Shoot(shootingPosition.position, direction);
+            DrawLine(shootingPosition.position, targetPos);
         }
 
         if(Input.GetKeyDown(KeyCode.R))
