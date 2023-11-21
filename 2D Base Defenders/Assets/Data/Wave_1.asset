@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wave_1
   m_EditorClassIdentifier: 
   id: wave_1
-  enemyPrefab: {fileID: 6193320782365913529, guid: 89a7c3e30d0599b43a7fcfc9aca9879c, type: 3}
+  enemyPrefab: {fileID: 6193320782365913529, guid: 5b312d1fe7acb384fbe5d58ee4ccb625, type: 3}
   amountToSpawn: 10

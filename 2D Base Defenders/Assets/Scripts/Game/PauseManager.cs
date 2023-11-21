@@ -13,8 +13,11 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject menuPause = null;
 
     [SerializeField] private Button buttonResume = null;
-    [SerializeField] private Button buttonOptions = null;
-    [SerializeField] private Button buttonMenu = null;
+    [SerializeField] private Button buttonSettings = null;
+    [SerializeField] private Button buttonMenuBack = null;
+
+    [Space, Header("Scenes")]
+    [SerializeField] private string backScene = "Menu";
     #endregion
 
     #region PRIVATE_FIELDS
@@ -33,6 +36,9 @@ public class PauseManager : MonoBehaviour
         canPause = true;
 
         ChangeState(isOnPause);
+
+        buttonResume.onClick.AddListener(OnResume);
+        buttonMenuBack.onClick.AddListener(OnMenuBack);
     }
     #endregion
 
@@ -79,6 +85,17 @@ public class PauseManager : MonoBehaviour
     {
         menuPause.SetActive(state);
         onPause?.Invoke(state);
+    }
+
+    private void OnResume()
+    {
+        isOnPause = false;
+        ChangeState(isOnPause);
+    }
+
+    private void OnMenuBack()
+    {
+        SceneManager.LoadScene(backScene);
     }
     #endregion
 }

@@ -13,11 +13,11 @@ public class MenuController : MonoBehaviour
 
     [Space, Header("Menu Main UI")]
     [SerializeField] private Button buttonPlay = null;
-    [SerializeField] private Button buttonOptions = null;
+    [SerializeField] private Button buttonSettings = null;
     [SerializeField] private Button buttonExit = null;
 
     [Space, Header("Menu Options UI")]
-    [SerializeField] private Button buttonOptionsGameplay = null;
+    [SerializeField] private Button buttonOptionsGame = null;
     [SerializeField] private Button buttonOptionsControls = null;
     [SerializeField] private Button buttonOptionsGraphics = null;
     [SerializeField] private Button buttonOptionsAudio = null;
@@ -40,7 +40,7 @@ public class MenuController : MonoBehaviour
     {
         buttonPlay.onClick.AddListener(() => Play());
 
-        buttonOptions.onClick.AddListener(() => OpenOptions());
+        buttonSettings.onClick.AddListener(() => OpenOptions());
 
         buttonExit.onClick.AddListener(() => ExitApplication());
 

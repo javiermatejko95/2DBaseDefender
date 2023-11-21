@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
 
     #region PRIVATE_FIELDS
     private Rigidbody2D rigidbody2D = null;
+    private Animator anim = null;
 
     private Vector3 moveDirection = new Vector3();
     private Transform targetPos = null;
@@ -42,6 +43,7 @@ public class EnemyController : MonoBehaviour
     public void Initialize(Action onDeath, Barricade barricade)
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         this.onDeath = onDeath;
 
