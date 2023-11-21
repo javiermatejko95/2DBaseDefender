@@ -14,6 +14,10 @@ public class Gun : MonoBehaviour
     [SerializeField] private float reloadRate = 1f;
     [SerializeField] private LayerMask layersToIgnore;
     [SerializeField] private Timer reloadTimer = null;
+
+    [Space, Header("Animation")]
+    [SerializeField] private Animator animator = null;
+    [SerializeField] private string triggerName = "shoot";
     #endregion
 
     #region PRIVATE_FIELDS
@@ -53,6 +57,8 @@ public class Gun : MonoBehaviour
                 enemyController.TakeDamage();
             }
         }
+
+        animator.SetTrigger(triggerName);
 
         currentAmmo--;
 
