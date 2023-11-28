@@ -7,6 +7,7 @@ public class WeaponController : MonoBehaviour
     #region EXPOSED_FIELDS
     [SerializeField] private Gun gun = null;
     [SerializeField] private Transform shootingPosition = null;
+    [SerializeField] private GunTrail trail = null;
     #endregion
 
     #region PRIVATE_FIELDS
@@ -16,7 +17,7 @@ public class WeaponController : MonoBehaviour
     #region INIT
     public void Init()
     {
-        gun.Init();
+        gun.Init(SpawnTrail);
         canShoot = true;
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
@@ -71,6 +72,11 @@ public class WeaponController : MonoBehaviour
     private void ChangeState(bool state)
     {
         canShoot = !state;
+    }
+
+    private void SpawnTrail()
+    {
+        Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation);
     }
     #endregion
 }

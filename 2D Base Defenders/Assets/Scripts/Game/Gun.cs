@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Gun : MonoBehaviour
 {
@@ -24,11 +25,15 @@ public class Gun : MonoBehaviour
     private int currentAmmo = 10;
 
     private bool isReloading = false;
+
+    private Action onSpawnTrail = null;
     #endregion
 
     #region INIT
-    public void Init()
+    public void Init(Action onSpawnTrail)
     {
+        this.onSpawnTrail = onSpawnTrail;
+
         reloadTimer.Init(reloadRate, Reload);
 
         currentAmmo = maxAmmo;
@@ -57,6 +62,8 @@ public class Gun : MonoBehaviour
                 enemyController.TakeDamage();
             }
         }
+
+        onSpawnTrail?.Invoke();
 
         animator.SetTrigger(triggerName);
 

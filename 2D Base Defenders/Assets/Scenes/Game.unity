@@ -2118,6 +2118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun: {fileID: 941202377}
   shootingPosition: {fileID: 1371408745}
+  trail: {fileID: 5531115774993249752, guid: 72dc56610826f5e47bff24b8080ee233, type: 3}
 --- !u!114 &757012684
 MonoBehaviour:
   m_ObjectHideFlags: 0
