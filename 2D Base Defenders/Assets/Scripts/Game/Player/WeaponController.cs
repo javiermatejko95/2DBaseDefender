@@ -74,9 +74,13 @@ public class WeaponController : MonoBehaviour
         canShoot = !state;
     }
 
-    private void SpawnTrail()
+    private void SpawnTrail(Vector3 startPos, Vector3 targetPos)
     {
-        Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation);
+        GunTrail trailGO = Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation).GetComponent<GunTrail>();
+
+        trailGO.Initialize(targetPos);
+        //trail.CreateTrail(startPos, targetPos);
+        //Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation);
     }
     #endregion
 }

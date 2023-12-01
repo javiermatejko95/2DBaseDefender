@@ -18,7 +18,8 @@ public class Gun : MonoBehaviour
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
-    [SerializeField] private string triggerName = "shoot";
+    [SerializeField] private string triggerShootName = "shoot";
+    [SerializeField] private string triggerReloadName = "reload";
     #endregion
 
     #region PRIVATE_FIELDS
@@ -26,11 +27,11 @@ public class Gun : MonoBehaviour
 
     private bool isReloading = false;
 
-    private Action onSpawnTrail = null;
+    private Action<Vector3, Vector3> onSpawnTrail = null;
     #endregion
 
     #region INIT
-    public void Init(Action onSpawnTrail)
+    public void Init(Action<Vector3, Vector3> onSpawnTrail)
     {
         this.onSpawnTrail = onSpawnTrail;
 
@@ -60,12 +61,15 @@ public class Gun : MonoBehaviour
             if(enemyController != null)
             {
                 enemyController.TakeDamage();
+                onSpawnTrail?.Invoke(shootPosition, raycastHit2D.point);
             }
         }
+        else
+        {
+            onSpawnTrail?.Invoke(shootPosition, shootDirection);
+        }        
 
-        onSpawnTrail?.Invoke();
-
-        animator.SetTrigger(triggerName);
+        animator.SetTrigger(triggerShootName);
 
         currentAmmo--;
 
@@ -79,6 +83,8 @@ public class Gun : MonoBehaviour
 
     public void StartReloading()
     {
+        animator.SetTrigger(triggerReloadName);
+
         isReloading = true;
         reloadTimer.ToggleTimer(true);
     }
