@@ -6,7 +6,6 @@ public class GunTrail : MonoBehaviour
 {
     #region EXPOSED_FIELDS
     [SerializeField] private float speed = 30f;
-    [SerializeField] private Material material = null;
     #endregion
 
     #region PRIVATE_FIELDS
@@ -27,11 +26,6 @@ public class GunTrail : MonoBehaviour
     #endregion
 
     #region UNITY_CALLS
-    private void Awake()
-    {
-        //Destroy(gameObject, 1f);
-    }
-
     private void Update()
     {
         if(!isInitialized)
@@ -39,7 +33,6 @@ public class GunTrail : MonoBehaviour
             return;
         }
         Move();
-        //transform.Translate(Vector3.right * Time.deltaTime * speed);
     }
     #endregion
 

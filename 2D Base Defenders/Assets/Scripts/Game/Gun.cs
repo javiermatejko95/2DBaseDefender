@@ -45,14 +45,16 @@ public class Gun : MonoBehaviour
     }
     #endregion
 
-    public void Shoot(Vector3 shootPosition, Vector3 shootDirection)
+    public void Shoot(Vector3 shootPosition, Vector3 shootDirection, Vector3 mousePos)
     {
         if(isReloading)
         {
             return;
         }
 
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection, 100f, ~layersToIgnore);
+        float distance = Vector2.Distance(shootPosition, mousePos);
+
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection, distance, ~layersToIgnore);
 
         if(raycastHit2D.collider != null)
         {
@@ -66,7 +68,7 @@ public class Gun : MonoBehaviour
         }
         else
         {
-            onSpawnTrail?.Invoke(shootPosition, shootDirection);
+            onSpawnTrail?.Invoke(shootPosition, mousePos);
         }        
 
         animator.SetTrigger(triggerShootName);

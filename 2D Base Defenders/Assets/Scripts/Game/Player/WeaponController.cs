@@ -34,13 +34,12 @@ public class WeaponController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            targetPos.z = 0f;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0f;
 
-            Vector3 direction = (targetPos - shootingPosition.position).normalized;
+            Vector3 direction = (mousePos - shootingPosition.position).normalized;
 
-            gun.Shoot(shootingPosition.position, direction);
-            DrawLine(shootingPosition.position, targetPos);
+            gun.Shoot(shootingPosition.position, direction, mousePos);
         }
 
         if(Input.GetKeyDown(KeyCode.R))
