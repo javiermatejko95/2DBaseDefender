@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EFFECT_TYPE
+{
+    BLOOD,
+    GROUND
+}
+
 public class WeaponController : MonoBehaviour
 {
     #region EXPOSED_FIELDS
     [SerializeField] private Gun gun = null;
     [SerializeField] private Transform shootingPosition = null;
     [SerializeField] private GunTrail trail = null;
-    [SerializeField] private BloodEffect bloodEffect = null;
+    [SerializeField] private ParticlesEffect bloodEffect = null;
+    [SerializeField] private ParticlesEffect groundEffect = null;
     #endregion
 
     #region PRIVATE_FIELDS
@@ -18,7 +25,7 @@ public class WeaponController : MonoBehaviour
     #region INIT
     public void Init()
     {
-        gun.Init(SpawnTrail, SpawnBloodEffect);
+        gun.Init(SpawnTrail, SpawnParticlesEffect);
         canShoot = true;
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
@@ -84,9 +91,21 @@ public class WeaponController : MonoBehaviour
         //Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation);
     }
 
-    private void SpawnBloodEffect(Vector3 spawnPos)
+    private void SpawnParticlesEffect(EFFECT_TYPE type, Vector3 spawnPos)
     {
-        BloodEffect be = Instantiate(bloodEffect.gameObject, spawnPos, bloodEffect.gameObject.transform.rotation).GetComponent<BloodEffect>();
+        ParticlesEffect effect = null;
+
+        switch(type)
+        {
+            case EFFECT_TYPE.BLOOD:
+                effect = bloodEffect; 
+                break;
+            case EFFECT_TYPE.GROUND:
+                effect = groundEffect;                
+                break;
+        }
+
+        Instantiate(effect.gameObject, spawnPos, effect.gameObject.transform.rotation);
     }
     #endregion
 }

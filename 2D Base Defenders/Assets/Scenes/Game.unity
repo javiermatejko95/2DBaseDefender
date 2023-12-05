@@ -12895,7 +12895,8 @@ MonoBehaviour:
   gun: {fileID: 941202377}
   shootingPosition: {fileID: 1371408745}
   trail: {fileID: 5531115774993249752, guid: 72dc56610826f5e47bff24b8080ee233, type: 3}
-  bloodEffect: {fileID: 5172720637737206456, guid: 747bdb345162d4048a8719a56edd0417, type: 3}
+  bloodEffect: {fileID: 1115087604709650853, guid: 747bdb345162d4048a8719a56edd0417, type: 3}
+  groundEffect: {fileID: 8500919692251500373, guid: 8e527ecd2fec926429df4481be253f31, type: 3}
 --- !u!114 &757012684
 MonoBehaviour:
   m_ObjectHideFlags: 0
