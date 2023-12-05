@@ -8,6 +8,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Gun gun = null;
     [SerializeField] private Transform shootingPosition = null;
     [SerializeField] private GunTrail trail = null;
+    [SerializeField] private BloodEffect bloodEffect = null;
     #endregion
 
     #region PRIVATE_FIELDS
@@ -17,7 +18,7 @@ public class WeaponController : MonoBehaviour
     #region INIT
     public void Init()
     {
-        gun.Init(SpawnTrail);
+        gun.Init(SpawnTrail, SpawnBloodEffect);
         canShoot = true;
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
@@ -40,6 +41,7 @@ public class WeaponController : MonoBehaviour
             Vector3 direction = (mousePos - shootingPosition.position).normalized;
 
             gun.Shoot(shootingPosition.position, direction, mousePos);
+
         }
 
         if(Input.GetKeyDown(KeyCode.R))
@@ -80,6 +82,11 @@ public class WeaponController : MonoBehaviour
         trailGO.Initialize(targetPos);
         //trail.CreateTrail(startPos, targetPos);
         //Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation);
+    }
+
+    private void SpawnBloodEffect(Vector3 spawnPos)
+    {
+        BloodEffect be = Instantiate(bloodEffect.gameObject, spawnPos, bloodEffect.gameObject.transform.rotation).GetComponent<BloodEffect>();
     }
     #endregion
 }

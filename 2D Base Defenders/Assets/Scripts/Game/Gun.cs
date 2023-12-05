@@ -28,12 +28,14 @@ public class Gun : MonoBehaviour
     private bool isReloading = false;
 
     private Action<Vector3, Vector3> onSpawnTrail = null;
+    private Action<Vector3> onSpawnBloodEffect = null;
     #endregion
 
     #region INIT
-    public void Init(Action<Vector3, Vector3> onSpawnTrail)
+    public void Init(Action<Vector3, Vector3> onSpawnTrail, Action<Vector3> onSpawnBloodEffect)
     {
         this.onSpawnTrail = onSpawnTrail;
+        this.onSpawnBloodEffect = onSpawnBloodEffect;
 
         reloadTimer.Init(reloadRate, Reload);
 
@@ -64,6 +66,7 @@ public class Gun : MonoBehaviour
             {
                 enemyController.TakeDamage();
                 onSpawnTrail?.Invoke(shootPosition, raycastHit2D.point);
+                onSpawnBloodEffect?.Invoke(raycastHit2D.point);
             }
         }
         else
