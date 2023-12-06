@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Timer attackTimer = null;
     [SerializeField] private float attackRate = 1f;
     [SerializeField] private int attackDamage = 10;
+
+    [SerializeField] private AudioClip impactClip = null;
     #endregion
 
     #region PRIVATE_FIELDS
@@ -74,6 +76,8 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage()
     {
+        AudioManager.Instance.PlaySound(impactClip);
+
         onDeath?.Invoke();
         ForceDestroy();
     }

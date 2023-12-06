@@ -13734,6 +13734,7 @@ MonoBehaviour:
     m_Bits: 576
   reloadTimer: {fileID: 511731462}
   shootClip: {fileID: 8300000, guid: 1f08ccec6dcbd7149b7b985ff796da07, type: 3}
+  reloadClip: {fileID: 8300000, guid: b79f2bd488175e04aac491881194da19, type: 3}
   animator: {fileID: 312417786}
   triggerShootName: shoot
   triggerReloadName: reload

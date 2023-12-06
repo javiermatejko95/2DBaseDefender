@@ -16,6 +16,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private LayerMask layersToIgnore;
     [SerializeField] private Timer reloadTimer = null;
     [SerializeField] private AudioClip shootClip = null;
+    [SerializeField] private AudioClip reloadClip = null;
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
@@ -93,6 +94,8 @@ public class Gun : MonoBehaviour
     public void StartReloading()
     {
         animator.SetTrigger(triggerReloadName);
+
+        AudioManager.Instance.PlaySound(reloadClip);
 
         isReloading = true;
         reloadTimer.ToggleTimer(true);

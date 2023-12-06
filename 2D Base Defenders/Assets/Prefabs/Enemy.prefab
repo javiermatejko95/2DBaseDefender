@@ -253,3 +253,4 @@ MonoBehaviour:
   attackTimer: {fileID: 6882392205789724116}
   attackRate: 1
   attackDamage: 10
+  impactClip: {fileID: 8300000, guid: d46ac7efa414136499c7e953392042e1, type: 3}
