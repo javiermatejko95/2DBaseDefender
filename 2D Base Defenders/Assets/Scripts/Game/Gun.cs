@@ -15,6 +15,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float reloadRate = 1f;
     [SerializeField] private LayerMask layersToIgnore;
     [SerializeField] private Timer reloadTimer = null;
+    [SerializeField] private AudioClip shootClip = null;
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
@@ -53,6 +54,8 @@ public class Gun : MonoBehaviour
         {
             return;
         }
+
+        AudioManager.Instance.PlaySound(shootClip);
 
         float distance = Vector2.Distance(shootPosition, mousePos);
 
