@@ -11,7 +11,8 @@ public enum EFFECT_TYPE
 public class WeaponController : MonoBehaviour
 {
     #region EXPOSED_FIELDS
-    [SerializeField] private Gun gun = null;
+    [SerializeField] private Gun[] gunsInventory = null;
+    [SerializeField] private Gun selectedGun = null;
     [SerializeField] private GunTrail trail = null;
     [SerializeField] private ParticlesEffect bloodEffect = null;
     [SerializeField] private ParticlesEffect groundEffect = null;
@@ -19,12 +20,19 @@ public class WeaponController : MonoBehaviour
 
     #region PRIVATE_FIELDS
     private bool canShoot = false;
+
+    private int currentWeaponIndex = 0;
     #endregion
 
     #region INIT
     public void Init()
     {
-        gun.Init(SpawnTrail, SpawnParticlesEffect);
+        currentWeaponIndex = 0;
+
+        SetupWeapons();
+
+        SelectGun(currentWeaponIndex);
+
         canShoot = true;
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
@@ -39,18 +47,19 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
+        ChangeWeapon();
+
         if(Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0f;
 
-            gun.Shoot(mousePos);
-
+            selectedGun.Shoot(mousePos);
         }
 
         if(Input.GetKeyDown(KeyCode.R))
         {
-            gun.StartReloading();
+            selectedGun.StartReloading();
         }
     }
     #endregion
@@ -101,6 +110,39 @@ public class WeaponController : MonoBehaviour
         }
 
         Instantiate(effect.gameObject, spawnPos, effect.gameObject.transform.rotation);
+    }
+
+    private void SetupWeapons()
+    {
+        for(int i = 0; i < gunsInventory.Length; i++)
+        {
+            gunsInventory[i].Init(SpawnTrail, SpawnParticlesEffect);
+            gunsInventory[i].Hide();
+        }
+    }
+
+    private void SelectGun(int index)
+    {
+        gunsInventory[currentWeaponIndex].Hide();
+
+        selectedGun = gunsInventory[index];
+
+        gunsInventory[index].Show();
+
+        currentWeaponIndex = index;
+    }
+
+    private void ChangeWeapon()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SelectGun(0);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectGun(1);
+        }
     }
     #endregion
 }

@@ -41,15 +41,25 @@ public class Gun : MonoBehaviour
 
         currentAmmo = maxAmmo;
 
-        UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
-
         PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
     #endregion
 
+    #region PUBLIC_METHODS
+    public void Show()
+    {
+        gameObject.SetActive(true);
+        UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void Shoot(Vector3 mousePos)
     {
-        if(isReloading)
+        if (isReloading)
         {
             return;
         }
@@ -64,11 +74,11 @@ public class Gun : MonoBehaviour
 
         RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPos, direction, distance, ~layersToIgnore);
 
-        if(raycastHit2D.collider != null)
+        if (raycastHit2D.collider != null)
         {
             EnemyController enemyController = raycastHit2D.collider.GetComponent<EnemyController>();
 
-            if(enemyController != null)
+            if (enemyController != null)
             {
                 enemyController.TakeDamage();
                 onSpawnTrail?.Invoke(shootingPos, raycastHit2D.point);
@@ -79,7 +89,7 @@ public class Gun : MonoBehaviour
         {
             onSpawnTrail?.Invoke(shootingPos, mousePos);
             onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.GROUND, mousePos);
-        }        
+        }
 
         animator.SetTrigger(triggerShootName);
 
@@ -87,15 +97,15 @@ public class Gun : MonoBehaviour
 
         UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
 
-        if(currentAmmo <= 0)
+        if (currentAmmo <= 0)
         {
             StartReloading();
-        }        
+        }
     }
 
     public void StartReloading()
     {
-        if(!CanReload())
+        if (!CanReload())
         {
             return;
         }
@@ -108,6 +118,8 @@ public class Gun : MonoBehaviour
 
         reloadTimer.ToggleTimer(true);
     }
+    #endregion
+
     #region PRIVATE_METHODS
     private void Reload()
     {
