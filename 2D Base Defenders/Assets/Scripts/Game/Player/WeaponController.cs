@@ -22,6 +22,9 @@ public class WeaponController : MonoBehaviour
     private bool canShoot = false;
 
     private int currentWeaponIndex = 0;
+
+    private float nextFireTime = 0f;
+    private float fireRate = 1f;
     #endregion
 
     #region INIT
@@ -49,15 +52,9 @@ public class WeaponController : MonoBehaviour
 
         ChangeWeapon();
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f;
+        Shoot();
 
-            selectedGun.Shoot(mousePos);
-        }
-
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             selectedGun.StartReloading();
         }
@@ -112,6 +109,31 @@ public class WeaponController : MonoBehaviour
         Instantiate(effect.gameObject, spawnPos, effect.gameObject.transform.rotation);
     }
 
+    private void Shoot()
+    {
+        if(fireRate == 0f)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePos.z = 0f;
+
+                selectedGun.Shoot(mousePos);
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButton(0) && Time.time > nextFireTime)
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePos.z = 0f;
+
+                selectedGun.Shoot(mousePos);
+                nextFireTime = Time.time + 1f / fireRate;
+            }
+        }     
+    }
+
     private void SetupWeapons()
     {
         for(int i = 0; i < gunsInventory.Length; i++)
@@ -126,6 +148,8 @@ public class WeaponController : MonoBehaviour
         gunsInventory[currentWeaponIndex].Hide();
 
         selectedGun = gunsInventory[index];
+
+        fireRate = selectedGun.FireRate;
 
         gunsInventory[index].Show();
 

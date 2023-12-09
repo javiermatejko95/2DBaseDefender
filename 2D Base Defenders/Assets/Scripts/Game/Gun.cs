@@ -15,11 +15,16 @@ public class Gun : MonoBehaviour
     [SerializeField] private AudioClip shootClip = null;
     [SerializeField] private AudioClip reloadClip = null;
     [SerializeField] private Transform shootingPos = null;
+    [SerializeField] private float fireRate = 1f;
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
     [SerializeField] private string triggerShootName = "shoot";
     [SerializeField] private string triggerReloadName = "reload";
+    #endregion
+
+    #region PROPERTIES
+    public float FireRate { get => fireRate; }
     #endregion
 
     #region PRIVATE_FIELDS

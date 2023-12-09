@@ -327,7 +327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4304519537170977822
 Transform:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ Transform:
   - {fileID: 6515604210693024061}
   - {fileID: 1630033765117778420}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1827761566391362162
 MonoBehaviour:
@@ -366,6 +366,7 @@ MonoBehaviour:
   shootClip: {fileID: 8300000, guid: 1f08ccec6dcbd7149b7b985ff796da07, type: 3}
   reloadClip: {fileID: 8300000, guid: b79f2bd488175e04aac491881194da19, type: 3}
   shootingPos: {fileID: 1873532581618210069}
+  fireRate: 0
   animator: {fileID: 8436565586433543763}
   triggerShootName: shoot
   triggerReloadName: reload
