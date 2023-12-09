@@ -93,11 +93,17 @@ public class Gun : MonoBehaviour
 
     public void StartReloading()
     {
+        if(!CanReload())
+        {
+            return;
+        }
+
+        isReloading = true;
+
         animator.SetTrigger(triggerReloadName);
 
         AudioManager.Instance.PlaySound(reloadClip);
 
-        isReloading = true;
         reloadTimer.ToggleTimer(true);
     }
     #region PRIVATE_METHODS
@@ -121,6 +127,21 @@ public class Gun : MonoBehaviour
         {
             reloadTimer.ToggleTimer(!state);
         }
+    }
+
+    private bool CanReload()
+    {
+        if(isReloading)
+        {
+            return false;
+        }
+
+        if(currentAmmo >= maxAmmo)
+        {
+            return false;
+        }
+
+        return true;
     }
     #endregion
 }
