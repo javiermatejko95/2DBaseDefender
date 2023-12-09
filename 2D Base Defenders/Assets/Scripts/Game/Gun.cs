@@ -7,9 +7,6 @@ using System;
 public class Gun : MonoBehaviour
 {
     #region EXPOSED_FIELDS
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI ammoText = null;
-
     [Header("Config")]
     [SerializeField] private int maxAmmo = 10;
     [SerializeField] private float reloadRate = 1f;
@@ -43,7 +40,7 @@ public class Gun : MonoBehaviour
 
         currentAmmo = maxAmmo;
 
-        UpdateAmmoText();
+        UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
@@ -83,7 +80,7 @@ public class Gun : MonoBehaviour
 
         currentAmmo--;
 
-        UpdateAmmoText();
+        UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
 
         if(currentAmmo <= 0)
         {
@@ -111,14 +108,9 @@ public class Gun : MonoBehaviour
     {
         currentAmmo = maxAmmo;
 
-        UpdateAmmoText();
+        UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
 
         isReloading = false;
-    }
-
-    private void UpdateAmmoText()
-    {
-        ammoText.text = currentAmmo + "/" + maxAmmo;
     }
 
     private void ChangeState(bool state)

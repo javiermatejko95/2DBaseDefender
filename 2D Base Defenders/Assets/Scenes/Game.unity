@@ -857,13 +857,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312417784}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.588, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1321846760}
-  m_Father: {fileID: 757012681}
+  m_Father: {fileID: 361546819}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &312417786
@@ -1152,6 +1152,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345498988}
   m_CullTransparentMesh: 1
+--- !u!1 &361546818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 361546819}
+  - component: {fileID: 361546820}
+  m_Layer: 6
+  m_Name: Pistol_Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &361546819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361546818}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 511731463}
+  - {fileID: 312417785}
+  m_Father: {fileID: 757012681}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &361546820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361546818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5677f2b881cda348986808a2c8c6e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAmmo: 10
+  reloadRate: 1
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 576
+  reloadTimer: {fileID: 511731462}
+  shootClip: {fileID: 8300000, guid: 1f08ccec6dcbd7149b7b985ff796da07, type: 3}
+  reloadClip: {fileID: 8300000, guid: b79f2bd488175e04aac491881194da19, type: 3}
+  animator: {fileID: 312417786}
+  triggerShootName: shoot
+  triggerReloadName: reload
 --- !u!1 &389072009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,12 +1668,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511731461}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.099999905, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 941202376}
+  m_Father: {fileID: 361546819}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
@@ -1903,6 +1960,7 @@ Transform:
   - {fileID: 480840218}
   - {fileID: 1233767655}
   - {fileID: 1070997755}
+  - {fileID: 969864629}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13036,8 +13094,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1131813360}
-  - {fileID: 941202376}
-  - {fileID: 312417785}
+  - {fileID: 361546819}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13098,7 +13155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1557721efe641b41a5dac2324ab182b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 941202377}
+  gun: {fileID: 361546820}
   shootingPosition: {fileID: 1371408745}
   trail: {fileID: 5531115774993249752, guid: 72dc56610826f5e47bff24b8080ee233, type: 3}
   bloodEffect: {fileID: 1115087604709650853, guid: 747bdb345162d4048a8719a56edd0417, type: 3}
@@ -13760,7 +13817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &941202375
+--- !u!1 &969864628
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13768,55 +13825,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 941202376}
-  - component: {fileID: 941202377}
+  - component: {fileID: 969864629}
+  - component: {fileID: 969864630}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &941202376
+--- !u!4 &969864629
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941202375}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 0.5, z: 1}
+  m_GameObject: {fileID: 969864628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 511731463}
-  m_Father: {fileID: 757012681}
+  m_Children: []
+  m_Father: {fileID: 681451131}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &941202377
+--- !u!114 &969864630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941202375}
+  m_GameObject: {fileID: 969864628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5677f2b881cda348986808a2c8c6e96, type: 3}
+  m_Script: {fileID: 11500000, guid: 218ea2adec4cc3b478265ea5c378003d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoText: {fileID: 1946771405}
-  maxAmmo: 10
-  reloadRate: 1
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 576
-  reloadTimer: {fileID: 511731462}
-  shootClip: {fileID: 8300000, guid: 1f08ccec6dcbd7149b7b985ff796da07, type: 3}
-  reloadClip: {fileID: 8300000, guid: b79f2bd488175e04aac491881194da19, type: 3}
-  animator: {fileID: 312417786}
-  triggerShootName: shoot
-  triggerReloadName: reload
+  ammoTxt: {fileID: 1946771405}
 --- !u!1 &976613207
 GameObject:
   m_ObjectHideFlags: 0
@@ -15688,7 +15733,7 @@ Transform:
   m_GameObject: {fileID: 1618740880}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.37, y: -0.110000014, z: 0}
-  m_LocalScale: {x: 2.4712, y: 2.4712, z: 2.4712}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1321846760}
@@ -15735,7 +15780,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 72969f56e4ae93941a03487b0f5d976b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9565282a85b3f544690a6f3e7dac530e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
