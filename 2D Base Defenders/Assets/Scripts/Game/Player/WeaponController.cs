@@ -12,7 +12,6 @@ public class WeaponController : MonoBehaviour
 {
     #region EXPOSED_FIELDS
     [SerializeField] private Gun gun = null;
-    [SerializeField] private Transform shootingPosition = null;
     [SerializeField] private GunTrail trail = null;
     [SerializeField] private ParticlesEffect bloodEffect = null;
     [SerializeField] private ParticlesEffect groundEffect = null;
@@ -45,9 +44,7 @@ public class WeaponController : MonoBehaviour
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0f;
 
-            Vector3 direction = (mousePos - shootingPosition.position).normalized;
-
-            gun.Shoot(shootingPosition.position, direction, mousePos);
+            gun.Shoot(mousePos);
 
         }
 
@@ -82,13 +79,11 @@ public class WeaponController : MonoBehaviour
         canShoot = !state;
     }
 
-    private void SpawnTrail(Vector3 startPos, Vector3 targetPos)
+    private void SpawnTrail(Transform shootPos, Vector3 targetPos)
     {
-        GunTrail trailGO = Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation).GetComponent<GunTrail>();
+        GunTrail trailGO = Instantiate(trail.gameObject, shootPos.position, shootPos.rotation).GetComponent<GunTrail>();
 
         trailGO.Initialize(targetPos);
-        //trail.CreateTrail(startPos, targetPos);
-        //Instantiate(trail.gameObject, shootingPosition.position, shootingPosition.rotation);
     }
 
     private void SpawnParticlesEffect(EFFECT_TYPE type, Vector3 spawnPos)

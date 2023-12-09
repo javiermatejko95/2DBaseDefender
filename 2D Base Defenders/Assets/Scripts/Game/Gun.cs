@@ -14,6 +14,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Timer reloadTimer = null;
     [SerializeField] private AudioClip shootClip = null;
     [SerializeField] private AudioClip reloadClip = null;
+    [SerializeField] private Transform shootingPos = null;
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
@@ -26,12 +27,12 @@ public class Gun : MonoBehaviour
 
     private bool isReloading = false;
 
-    private Action<Vector3, Vector3> onSpawnTrail = null;
+    private Action<Transform, Vector3> onSpawnTrail = null;
     private Action<EFFECT_TYPE, Vector3> onSpawnParticlesEffect = null;
     #endregion
 
     #region INIT
-    public void Init(Action<Vector3, Vector3> onSpawnTrail, Action<EFFECT_TYPE, Vector3> onSpawnParticlesEffect)
+    public void Init(Action<Transform, Vector3> onSpawnTrail, Action<EFFECT_TYPE, Vector3> onSpawnParticlesEffect)
     {
         this.onSpawnTrail = onSpawnTrail;
         this.onSpawnParticlesEffect = onSpawnParticlesEffect;
@@ -46,18 +47,22 @@ public class Gun : MonoBehaviour
     }
     #endregion
 
-    public void Shoot(Vector3 shootPosition, Vector3 shootDirection, Vector3 mousePos)
+    public void Shoot(Vector3 mousePos)
     {
         if(isReloading)
         {
             return;
         }
 
+        Vector3 shootPos = shootingPos.position;
+
+        Vector3 direction = (mousePos - shootPos).normalized;
+
         AudioManager.Instance.PlaySound(shootClip);
 
-        float distance = Vector2.Distance(shootPosition, mousePos);
+        float distance = Vector2.Distance(shootPos, mousePos);
 
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPosition, shootDirection, distance, ~layersToIgnore);
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPos, direction, distance, ~layersToIgnore);
 
         if(raycastHit2D.collider != null)
         {
@@ -66,13 +71,13 @@ public class Gun : MonoBehaviour
             if(enemyController != null)
             {
                 enemyController.TakeDamage();
-                onSpawnTrail?.Invoke(shootPosition, raycastHit2D.point);
+                onSpawnTrail?.Invoke(shootingPos, raycastHit2D.point);
                 onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.BLOOD, raycastHit2D.point);
             }
         }
         else
         {
-            onSpawnTrail?.Invoke(shootPosition, mousePos);
+            onSpawnTrail?.Invoke(shootingPos, mousePos);
             onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.GROUND, mousePos);
         }        
 
