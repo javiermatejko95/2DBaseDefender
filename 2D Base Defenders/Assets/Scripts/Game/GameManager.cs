@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     [Space, Header("UI")]
     [SerializeField] private Button buttonStart = null;
+    [SerializeField] private Countdown countdown = null;
     #endregion
 
     #region UNITY_CALLS
@@ -27,16 +28,20 @@ public class GameManager : MonoBehaviour
         weaponController.Init();
         feedbackManager.Init(RestartGame);
 
-        buttonStart.onClick.AddListener(() =>
-        {
-            buttonStart.gameObject.SetActive(false);
-            pauseManager.SetCanPause(true);
-            pauseManager.SetPause(false);
-            StartGame();
-        });
+        //buttonStart.onClick.AddListener(() =>
+        //{
+        //    buttonStart.gameObject.SetActive(false);
+        //    countdown.Initialize(FinishCountdown);
+        //    countdown.Show();
+        //    countdown.StartCountdown();
+        //});
 
         pauseManager.SetCanPause(false);
         pauseManager.SetPause(true);
+
+        countdown.Initialize(FinishCountdown);
+        countdown.Show();
+        countdown.StartCountdown();
     }
     #endregion
 
@@ -49,9 +54,13 @@ public class GameManager : MonoBehaviour
 
     private void RestartGame()
     {
-        wavesManager.RestartSpawning();
-        pauseManager.SetCanPause(true);
-        pauseManager.SetPause(false);
+        countdown.Initialize(() =>
+        {
+            wavesManager.RestartSpawning();
+            FinishCountdown();
+        });
+        countdown.Show();
+        countdown.StartCountdown();        
     }
 
     private void NextRound()
@@ -78,6 +87,14 @@ public class GameManager : MonoBehaviour
     {
         EndGame(true);
         Debug.Log("GANASTES WEI");
+    }
+
+    private void FinishCountdown()
+    {
+        countdown.Hide();
+        pauseManager.SetCanPause(true);
+        pauseManager.SetPause(false);
+        StartGame();
     }
     #endregion
 }
