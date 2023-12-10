@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
 
     [Space, Header("Animation")]
     [SerializeField] private string triggerAttackName = "attack";
+    [SerializeField] private string triggerRunName = "run";
     #endregion
 
     #region PRIVATE_FIELDS
@@ -62,7 +63,7 @@ public class EnemyController : MonoBehaviour
 
         attackTimer.Init(attackRate, Attack, () => animator.SetTrigger(triggerAttackName));
 
-        PauseManager.instance.AddCallbackOnPause(ChangeState);
+        PauseManager.instance.AddCallbackOnPause(ChangeState);        
     }
     #endregion
 
@@ -70,6 +71,11 @@ public class EnemyController : MonoBehaviour
     public void Toggle(bool status)
     {
         gameObject.SetActive(status);
+
+        if(status)
+        {
+            animator.SetTrigger(triggerRunName);
+        }
     }
 
     public void SetPosition(Vector3 pos)
