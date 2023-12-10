@@ -147,7 +147,7 @@ Transform:
   - {fileID: 6710253550337254740}
   - {fileID: 3874669741538842785}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2838520854086778895
 MonoBehaviour:
@@ -167,8 +167,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 576
   reloadTimer: {fileID: 4310369961388524988}
-  shootClip: {fileID: 8300000, guid: 1f08ccec6dcbd7149b7b985ff796da07, type: 3}
-  reloadClip: {fileID: 8300000, guid: b79f2bd488175e04aac491881194da19, type: 3}
+  shootClip: {fileID: 8300000, guid: 66b19e8f942ee7245be23d68840b9cde, type: 3}
+  reloadClip: {fileID: 8300000, guid: 51e931822ee482d47aebbcb48571be57, type: 3}
   shootingPos: {fileID: 8293585954687251339}
   fireRate: 10
   animator: {fileID: 5806795111771287345}
