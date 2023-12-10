@@ -592,6 +592,7 @@ MonoBehaviour:
   attackRate: 1
   attackDamage: 10
   impactClip: {fileID: 8300000, guid: d46ac7efa414136499c7e953392042e1, type: 3}
+  triggerAttackName: attack
 --- !u!95 &7233582572658992683
 Animator:
   serializedVersion: 5

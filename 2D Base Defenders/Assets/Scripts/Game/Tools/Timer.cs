@@ -13,6 +13,7 @@ public class Timer : MonoBehaviour
 
     #region ACTIONS
     private Action onReached = null;
+    private Action onStart = null;
     #endregion
 
     #region UNITY_CALLS
@@ -26,11 +27,12 @@ public class Timer : MonoBehaviour
     #endregion
 
     #region INIT
-    public void Init(float startingTime, Action onReached = null)
+    public void Init(float startingTime, Action onReached = null, Action onStart = null)
     {
         this.startingTime = startingTime;
         currentTime = startingTime;
         this.onReached = onReached;
+        this.onStart = onStart;
     }
     #endregion
 
@@ -38,6 +40,11 @@ public class Timer : MonoBehaviour
     public void ToggleTimer(bool status)
     {
         isOn = status;
+
+        if(isOn)
+        {
+            onStart?.Invoke();
+        }
     }
 
     public void RestartTimer()

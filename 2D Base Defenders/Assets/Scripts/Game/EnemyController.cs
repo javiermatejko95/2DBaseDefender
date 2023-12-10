@@ -14,11 +14,14 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int attackDamage = 10;
 
     [SerializeField] private AudioClip impactClip = null;
+
+    [Space, Header("Animation")]
+    [SerializeField] private string triggerAttackName = "attack";
     #endregion
 
     #region PRIVATE_FIELDS
     private Rigidbody2D rigidbody2D = null;
-    private Animator anim = null;
+    private Animator animator = null;
 
     private Vector3 moveDirection = new Vector3();
     private Transform targetPos = null;
@@ -45,7 +48,7 @@ public class EnemyController : MonoBehaviour
     public void Initialize(Action onDeath, Barricade barricade)
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         this.onDeath = onDeath;
 
@@ -57,7 +60,7 @@ public class EnemyController : MonoBehaviour
 
         canMove = true;
 
-        attackTimer.Init(attackRate, Attack);
+        attackTimer.Init(attackRate, Attack, () => animator.SetTrigger(triggerAttackName));
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
@@ -102,6 +105,11 @@ public class EnemyController : MonoBehaviour
             rigidbody2D.velocity = new Vector2(0f, 0f);
         }
     }
+
+    public void AttackBarricade()
+    {
+        barricade.TakeDamage(attackDamage);
+    }
     #endregion
 
     #region PRIVATE_METHODS
@@ -129,9 +137,7 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()
     {
-        attackTimer.ToggleTimer(canAttack);
-
-        barricade.TakeDamage(attackDamage);
+        attackTimer.ToggleTimer(canAttack);        
     }    
     #endregion
 }
