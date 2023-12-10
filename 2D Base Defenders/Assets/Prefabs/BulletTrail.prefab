@@ -74,7 +74,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_Positions:
   - {x: -5, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -159,4 +159,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  material: {fileID: 2100000, guid: 6ca9119bc1379544babd3b78135e4a00, type: 2}
