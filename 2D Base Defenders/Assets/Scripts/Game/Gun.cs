@@ -6,7 +6,6 @@ using System;
 
 public class Gun : MonoBehaviour
 {
-    #region EXPOSED_FIELDS
     [Header("Config")]
     [SerializeField] private int maxAmmo = 10;
     [SerializeField] private float reloadRate = 1f;
@@ -21,22 +20,16 @@ public class Gun : MonoBehaviour
     [SerializeField] private Animator animator = null;
     [SerializeField] private string triggerShootName = "shoot";
     [SerializeField] private string triggerReloadName = "reload";
-    #endregion
 
-    #region PROPERTIES
     public float FireRate { get => fireRate; }
-    #endregion
 
-    #region PRIVATE_FIELDS
     private int currentAmmo = 10;
 
     private bool isReloading = false;
 
     private Action<Transform, Vector3> onSpawnTrail = null;
     private Action<EFFECT_TYPE, Vector3> onSpawnParticlesEffect = null;
-    #endregion
 
-    #region INIT
     public void Init(Action<Transform, Vector3> onSpawnTrail, Action<EFFECT_TYPE, Vector3> onSpawnParticlesEffect)
     {
         this.onSpawnTrail = onSpawnTrail;
@@ -48,9 +41,7 @@ public class Gun : MonoBehaviour
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
-    #endregion
 
-    #region PUBLIC_METHODS
     public void Show()
     {
         gameObject.SetActive(true);
@@ -71,13 +62,15 @@ public class Gun : MonoBehaviour
 
         Vector3 shootPos = shootingPos.position;
 
-        Vector3 direction = (mousePos - shootPos).normalized;
+        Vector3 direction = shootingPos.right;
 
         AudioManager.Instance.PlaySound(shootClip);
 
         float distance = Vector2.Distance(shootPos, mousePos);
 
         RaycastHit2D raycastHit2D = Physics2D.Raycast(shootPos, direction, distance, ~layersToIgnore);
+
+        Vector3 targetPos = shootingPos.position + direction * distance;
 
         if (raycastHit2D.collider != null)
         {
@@ -86,14 +79,14 @@ public class Gun : MonoBehaviour
             if (enemyController != null)
             {
                 enemyController.TakeDamage();
-                onSpawnTrail?.Invoke(shootingPos, raycastHit2D.point);
+                onSpawnTrail?.Invoke(shootingPos, targetPos);
                 onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.BLOOD, raycastHit2D.point);
             }
         }
         else
         {
-            onSpawnTrail?.Invoke(shootingPos, mousePos);
-            onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.GROUND, mousePos);
+            onSpawnTrail?.Invoke(shootingPos, targetPos);
+            onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.GROUND, targetPos);
         }
 
         animator.SetTrigger(triggerShootName);
@@ -123,9 +116,7 @@ public class Gun : MonoBehaviour
 
         reloadTimer.ToggleTimer(true);
     }
-    #endregion
 
-    #region PRIVATE_METHODS
     private void Reload()
     {
         currentAmmo = maxAmmo;
@@ -157,5 +148,9 @@ public class Gun : MonoBehaviour
 
         return true;
     }
-    #endregion
+
+    private void DrawLine(Vector3 startPos, Vector3 endPos)
+    {
+        Debug.DrawLine(startPos, endPos, Color.white, 0.1f);
+    }
 }

@@ -87,7 +87,7 @@ public class WeaponController : MonoBehaviour
 
     private void SpawnTrail(Transform shootPos, Vector3 targetPos)
     {
-        GunTrail trailGO = Instantiate(trail.gameObject, shootPos.position, shootPos.rotation).GetComponent<GunTrail>();//TODO: change rotation to keep trail straight
+        GunTrail trailGO = Instantiate(trail.gameObject, shootPos.position, shootPos.rotation).GetComponent<GunTrail>();
 
         trailGO.Initialize(targetPos);
     }

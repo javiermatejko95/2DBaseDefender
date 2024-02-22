@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimParent: {fileID: 1630033765117778420}
+  clampAngle: 75
 --- !u!1 &4563254403685221617
 GameObject:
   m_ObjectHideFlags: 0

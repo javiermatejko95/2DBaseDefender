@@ -147,7 +147,7 @@ Transform:
   - {fileID: 6710253550337254740}
   - {fileID: 3874669741538842785}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2838520854086778895
 MonoBehaviour:
@@ -574,3 +574,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimParent: {fileID: 3874669741538842785}
+  clampAngle: 75
