@@ -79,7 +79,7 @@ public class Gun : MonoBehaviour
             if (enemyController != null)
             {
                 enemyController.TakeDamage();
-                onSpawnTrail?.Invoke(shootingPos, targetPos);
+                onSpawnTrail?.Invoke(shootingPos, raycastHit2D.point);
                 onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.BLOOD, raycastHit2D.point);
             }
         }
