@@ -6,6 +6,7 @@ public class PlayerAim : MonoBehaviour
 {
     #region EXPOSED_FIELDS
     [SerializeField] private Transform aimParent = null;
+    [SerializeField] private float clampAngle = 75f;
     #endregion
 
     #region UNITY_CALLS
@@ -15,7 +16,8 @@ public class PlayerAim : MonoBehaviour
 
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        aimParent.eulerAngles = new Vector3(0f, 0f, angle);
+        float clampedAngle = Mathf.Clamp(angle, -clampAngle, clampAngle);  
+        aimParent.eulerAngles = new Vector3(0f, 0f, clampedAngle);
     }
     #endregion
 
