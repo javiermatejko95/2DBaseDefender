@@ -108,11 +108,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2624489579943253629}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.152, y: 0.152, z: 0}
+  m_LocalPosition: {x: 3.152, y: 0.15200001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9204944861725745010}
+  m_Father: {fileID: 3874669741538842785}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2870703684057693140
@@ -125,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8142272723920069761}
   - component: {fileID: 2838520854086778895}
+  - component: {fileID: 8935474327130595196}
   m_Layer: 6
   m_Name: AR_Prefab
   m_TagString: Untagged
@@ -171,9 +172,30 @@ MonoBehaviour:
   reloadClip: {fileID: 8300000, guid: 51e931822ee482d47aebbcb48571be57, type: 3}
   shootingPos: {fileID: 8293585954687251339}
   fireRate: 10
-  animator: {fileID: 5806795111771287345}
+  animator: {fileID: 8935474327130595196}
   triggerShootName: shoot
   triggerReloadName: reload
+--- !u!95 &8935474327130595196
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870703684057693140}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12e6ed18b617b964d827c97d96086583, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5778109024601962979
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +523,6 @@ Transform:
   - {fileID: 881838571527666152}
   - {fileID: 7494303444067606636}
   - {fileID: 4383862746851283158}
-  - {fileID: 8293585954687251339}
   - {fileID: 7330404588169584756}
   - {fileID: 3553581838495234652}
   m_Father: {fileID: 3874669741538842785}
@@ -516,7 +537,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3874669741538842785}
-  - component: {fileID: 5806795111771287345}
   - component: {fileID: 6952400177508488726}
   m_Layer: 6
   m_Name: Aim
@@ -537,31 +557,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8293585954687251339}
   - {fileID: 9204944861725745010}
   m_Father: {fileID: 8142272723920069761}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5806795111771287345
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7982952102966137463}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 12e6ed18b617b964d827c97d96086583, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6952400177508488726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +648,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.5019608}
   m_FlipX: 0

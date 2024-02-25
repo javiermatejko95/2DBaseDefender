@@ -10,11 +10,11 @@ public class Gun : MonoBehaviour
     [SerializeField] private int maxAmmo = 10;
     [SerializeField] private float reloadRate = 1f;
     [SerializeField] private LayerMask layersToIgnore;
-    [SerializeField] private Timer reloadTimer = null;
     [SerializeField] private AudioClip shootClip = null;
     [SerializeField] private AudioClip reloadClip = null;
     [SerializeField] private Transform shootingPos = null;
     [SerializeField] private float fireRate = 1f;
+    [SerializeField] private bool isReloading = false;
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
@@ -25,7 +25,6 @@ public class Gun : MonoBehaviour
 
     private int currentAmmo = 10;
 
-    private bool isReloading = false;
 
     private Action<Transform, Vector3> onSpawnTrail = null;
     private Action<EFFECT_TYPE, Vector3> onSpawnParticlesEffect = null;
@@ -35,11 +34,7 @@ public class Gun : MonoBehaviour
         this.onSpawnTrail = onSpawnTrail;
         this.onSpawnParticlesEffect = onSpawnParticlesEffect;
 
-        reloadTimer.Init(reloadRate, Reload);
-
         currentAmmo = maxAmmo;
-
-        PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
 
     public void Show()
@@ -113,8 +108,6 @@ public class Gun : MonoBehaviour
         animator.SetTrigger(triggerReloadName);
 
         AudioManager.Instance.PlaySound(reloadClip);
-
-        reloadTimer.ToggleTimer(true);
     }
 
     private void Reload()
@@ -124,14 +117,6 @@ public class Gun : MonoBehaviour
         UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
 
         isReloading = false;
-    }
-
-    private void ChangeState(bool state)
-    {
-        if(isReloading)
-        {
-            reloadTimer.ToggleTimer(!state);
-        }
     }
 
     private bool CanReload()
