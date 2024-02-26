@@ -15,6 +15,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform shootingPos = null;
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private bool isReloading = false;
+    [SerializeField] private int damage = 10;
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
@@ -73,7 +74,7 @@ public class Gun : MonoBehaviour
 
             if (enemyController != null)
             {
-                enemyController.TakeDamage();
+                enemyController.TakeDamage(damage);
                 onSpawnTrail?.Invoke(shootingPos, raycastHit2D.point);
                 onSpawnParticlesEffect?.Invoke(EFFECT_TYPE.BLOOD, raycastHit2D.point);
             }

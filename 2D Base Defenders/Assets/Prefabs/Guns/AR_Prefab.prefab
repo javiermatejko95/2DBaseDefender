@@ -167,11 +167,12 @@ MonoBehaviour:
   layersToIgnore:
     serializedVersion: 2
     m_Bits: 576
-  reloadTimer: {fileID: 4310369961388524988}
   shootClip: {fileID: 8300000, guid: 66b19e8f942ee7245be23d68840b9cde, type: 3}
   reloadClip: {fileID: 8300000, guid: 51e931822ee482d47aebbcb48571be57, type: 3}
   shootingPos: {fileID: 8293585954687251339}
   fireRate: 10
+  isReloading: 0
+  damage: 50
   animator: {fileID: 8935474327130595196}
   triggerShootName: shoot
   triggerReloadName: reload
