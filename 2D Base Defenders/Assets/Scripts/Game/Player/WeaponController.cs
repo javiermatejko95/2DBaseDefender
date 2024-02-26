@@ -10,24 +10,19 @@ public enum EFFECT_TYPE
 
 public class WeaponController : MonoBehaviour
 {
-    #region EXPOSED_FIELDS
     [SerializeField] private Gun[] gunsInventory = null;
     [SerializeField] private Gun selectedGun = null;
     [SerializeField] private GunTrail trail = null;
     [SerializeField] private ParticlesEffect bloodEffect = null;
     [SerializeField] private ParticlesEffect groundEffect = null;
-    #endregion
 
-    #region PRIVATE_FIELDS
     private bool canShoot = false;
 
     private int currentWeaponIndex = 0;
 
     private float nextFireTime = 0f;
     private float fireRate = 1f;
-    #endregion
 
-    #region INIT
     public void Init()
     {
         currentWeaponIndex = 0;
@@ -40,9 +35,7 @@ public class WeaponController : MonoBehaviour
 
         PauseManager.instance.AddCallbackOnPause(ChangeState);
     }
-    #endregion
 
-    #region UNITY_CALLS
     private void Update()
     {
         if(!canShoot)
@@ -59,13 +52,7 @@ public class WeaponController : MonoBehaviour
             selectedGun.StartReloading();
         }
     }
-    #endregion
 
-    #region PUBLIC_METHODS
-
-    #endregion
-
-    #region PRIVATE_METHODS
     private float GetAngleFromVectorFloat(Vector3 direction)
     {
         direction = direction.normalized;
@@ -168,5 +155,4 @@ public class WeaponController : MonoBehaviour
             SelectGun(1);
         }
     }
-    #endregion
 }

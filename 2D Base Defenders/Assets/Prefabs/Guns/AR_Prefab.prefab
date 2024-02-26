@@ -176,6 +176,7 @@ MonoBehaviour:
   animator: {fileID: 8935474327130595196}
   triggerShootName: shoot
   triggerReloadName: reload
+  animDefault: player_shoot_idle_ar
 --- !u!95 &8935474327130595196
 Animator:
   serializedVersion: 5
@@ -649,7 +650,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.5019608}
   m_FlipX: 0

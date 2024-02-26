@@ -352,6 +352,7 @@ MonoBehaviour:
   animator: {fileID: 8703501242869116827}
   triggerShootName: shoot
   triggerReloadName: reload
+  animDefault: player_shoot_idle_pistol
 --- !u!95 &8703501242869116827
 Animator:
   serializedVersion: 5

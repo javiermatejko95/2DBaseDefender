@@ -21,11 +21,11 @@ public class Gun : MonoBehaviour
     [SerializeField] private Animator animator = null;
     [SerializeField] private string triggerShootName = "shoot";
     [SerializeField] private string triggerReloadName = "reload";
+    [SerializeField] private string animDefault = "player_shoot_idle_";
 
     public float FireRate { get => fireRate; }
 
     private int currentAmmo = 10;
-
 
     private Action<Transform, Vector3> onSpawnTrail = null;
     private Action<EFFECT_TYPE, Vector3> onSpawnParticlesEffect = null;
@@ -42,6 +42,8 @@ public class Gun : MonoBehaviour
     {
         gameObject.SetActive(true);
         UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
+
+        CheckReload();
     }
 
     public void Hide()
@@ -91,10 +93,7 @@ public class Gun : MonoBehaviour
 
         UIManager.Instance.UpdateAmmoText(currentAmmo, maxAmmo);
 
-        if (currentAmmo <= 0)
-        {
-            StartReloading();
-        }
+        CheckReload();
     }
 
     public void StartReloading()
@@ -138,5 +137,22 @@ public class Gun : MonoBehaviour
     private void DrawLine(Vector3 startPos, Vector3 endPos)
     {
         Debug.DrawLine(startPos, endPos, Color.white, 0.1f);
+    }
+
+    private void CheckReload()
+    {
+        CancelReload();
+
+        if (currentAmmo <= 0)
+        {
+            StartReloading();
+            return;
+        }        
+    }
+
+    private void CancelReload()
+    {
+        animator.Play(animDefault);
+        isReloading = false;
     }
 }
