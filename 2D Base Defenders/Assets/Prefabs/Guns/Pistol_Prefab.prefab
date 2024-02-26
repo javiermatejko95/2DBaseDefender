@@ -24,11 +24,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2602696026938492891}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.918, y: 0.151, z: 0}
+  m_LocalPosition: {x: 1.918, y: 0.15099996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 135653473087997351}
+  m_Father: {fileID: 1630033765117778420}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3326027257614966870
@@ -84,7 +84,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1630033765117778420}
-  - component: {fileID: 8436565586433543763}
   - component: {fileID: 2649555443254818022}
   m_Layer: 6
   m_Name: Aim
@@ -105,31 +104,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1873532581618210069}
   - {fileID: 135653473087997351}
   m_Father: {fileID: 4304519537170977822}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8436565586433543763
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3453236578829544072}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6fb97bcdd207d234dbea391468cf364b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2649555443254818022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4304519537170977822}
   - component: {fileID: 1827761566391362162}
+  - component: {fileID: 8703501242869116827}
   m_Layer: 6
   m_Name: Pistol_Prefab
   m_TagString: Untagged
@@ -344,7 +324,7 @@ Transform:
   - {fileID: 6515604210693024061}
   - {fileID: 1630033765117778420}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1827761566391362162
 MonoBehaviour:
@@ -363,14 +343,36 @@ MonoBehaviour:
   layersToIgnore:
     serializedVersion: 2
     m_Bits: 576
-  reloadTimer: {fileID: 4139706543610162789}
   shootClip: {fileID: 8300000, guid: 1f08ccec6dcbd7149b7b985ff796da07, type: 3}
   reloadClip: {fileID: 8300000, guid: b79f2bd488175e04aac491881194da19, type: 3}
   shootingPos: {fileID: 1873532581618210069}
   fireRate: 0
-  animator: {fileID: 8436565586433543763}
+  isReloading: 0
+  damage: 25
+  animator: {fileID: 8703501242869116827}
   triggerShootName: shoot
   triggerReloadName: reload
+--- !u!95 &8703501242869116827
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292896773930586565}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6fb97bcdd207d234dbea391468cf364b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5628893119589300618
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +404,6 @@ Transform:
   - {fileID: 8101036082192014271}
   - {fileID: 6930108175153843621}
   - {fileID: 3684556307015495021}
-  - {fileID: 1873532581618210069}
   - {fileID: 1518155456389884772}
   m_Father: {fileID: 1630033765117778420}
   m_RootOrder: -1
