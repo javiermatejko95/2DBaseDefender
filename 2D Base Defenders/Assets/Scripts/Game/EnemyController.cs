@@ -5,22 +5,20 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    #region EXPOSED_FIELDS
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float distanceToTarget = 10f;
     [Header("Config")]
     [SerializeField] private Timer attackTimer = null;
     [SerializeField] private float attackRate = 1f;
     [SerializeField] private int attackDamage = 10;
+    [SerializeField] private int maxHealth = 100;
 
     [SerializeField] private AudioClip impactClip = null;
 
     [Space, Header("Animation")]
     [SerializeField] private string triggerAttackName = "attack";
     [SerializeField] private string triggerRunName = "run";
-    #endregion
 
-    #region PRIVATE_FIELDS
     private Rigidbody2D rigidbody2D = null;
     private Animator animator = null;
 
@@ -31,21 +29,15 @@ public class EnemyController : MonoBehaviour
     private bool canMove = false;
     private bool canAttack = false;
 
+    private int healthAmount = 100;
+
     private Action onDeath = null;
-    #endregion
 
-    #region PROPERTIES
-
-    #endregion
-
-    #region UNITY_CALLS
     private void FixedUpdate()
     {
         Move();
     }
-    #endregion
 
-    #region INIT
     public void Initialize(Action onDeath, Barricade barricade)
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -63,11 +55,11 @@ public class EnemyController : MonoBehaviour
 
         attackTimer.Init(attackRate, Attack, () => animator.SetTrigger(triggerAttackName));
 
-        PauseManager.instance.AddCallbackOnPause(ChangeState);        
-    }
-    #endregion
+        healthAmount = maxHealth;
 
-    #region PUBLIC_METHODS
+        PauseManager.instance.AddCallbackOnPause(ChangeState);
+    }
+
     public void Toggle(bool status)
     {
         gameObject.SetActive(status);
@@ -83,12 +75,17 @@ public class EnemyController : MonoBehaviour
         transform.position = pos;
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
         AudioManager.Instance.PlaySound(impactClip);
 
-        onDeath?.Invoke();
-        ForceDestroy();
+        healthAmount -= damage;
+
+        if(healthAmount <= 0)
+        {
+            onDeath?.Invoke();
+            ForceDestroy();
+        }        
     }
 
     public void ForceDestroy()
@@ -116,9 +113,7 @@ public class EnemyController : MonoBehaviour
     {
         barricade.TakeDamage(attackDamage);
     }
-    #endregion
 
-    #region PRIVATE_METHODS
     private void Move()
     {
         if(!canMove)
@@ -144,6 +139,5 @@ public class EnemyController : MonoBehaviour
     private void Attack()
     {
         attackTimer.ToggleTimer(canAttack);        
-    }    
-    #endregion
+    }
 }
