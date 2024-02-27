@@ -11,9 +11,19 @@ public class ShopController : MonoBehaviour
         for (int i = 0; i < shopItems.Length; i++)
         {
             shopItems[i].OnSelected += SelectGun;
-        }
+            shopItems[i].Setup();
 
-        shopItems[0].IsUnlocked = true;
+            if(shopItems[i].IsStartingWeapon)
+            {
+                shopItems[i].Unlock();
+                shopItems[i].Select();
+            }
+            else
+            {
+                shopItems[i].Lock();
+                shopItems[i].Deselect();
+            }
+        }
     }
 
     private void SelectGun(GunShopItem selectedGun)
@@ -21,6 +31,18 @@ public class ShopController : MonoBehaviour
         if (selectedGun.IsUnlocked)
         {
             WeaponController.Instance.SelectGunByReference(selectedGun.Gun);
+
+            for(int i = 0; i < shopItems.Length; i++)
+            {
+                if(shopItems[i] == selectedGun)
+                {
+                    shopItems[i].Select();
+                    continue;                    
+                }
+
+                shopItems[i].Deselect();
+            }
+
             return;
         }
 
@@ -32,7 +54,8 @@ public class ShopController : MonoBehaviour
 
         EconomyController.Instance.TotalCoins -= selectedGun.ValueAmount;
 
-        selectedGun.IsUnlocked = true;
+        selectedGun.Unlock();
+        selectedGun.Select();
 
         WeaponController.Instance.SelectGunByReference(selectedGun.Gun);
     }
