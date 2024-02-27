@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class Gun : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
-    }
+    }    
 
     public void Shoot(Vector3 mousePos)
     {

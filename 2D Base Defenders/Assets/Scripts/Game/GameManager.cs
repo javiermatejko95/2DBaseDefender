@@ -5,26 +5,25 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    #region EXPOSED_FIELDS
     [SerializeField] private WavesManager wavesManager = null;
     [SerializeField] private Barricade barricade = null;
     [SerializeField] private WeaponController weaponController = null;
     [SerializeField] private PlayerController playerController = null;
     [SerializeField] private PauseController pauseManager = null;
     [SerializeField] private FeedbackManager feedbackManager = null;
+    [SerializeField] private ShopController shopController = null;
 
     [Space, Header("UI")]
     [SerializeField] private Button buttonStart = null;
     [SerializeField] private Countdown countdown = null;
-    #endregion
 
-    #region UNITY_CALLS
     private void Awake()
     {
         barricade.Initialize(LoseGame);
         pauseManager.Init();
         wavesManager.Init(WinGame);
         playerController.Init();
+        shopController.Setup();
         weaponController.Init();
         feedbackManager.Init(RestartGame);
 
@@ -37,15 +36,13 @@ public class GameManager : MonoBehaviour
         //});
 
         pauseManager.SetCanPause(false);
-        pauseManager.SetPause(true);
+        pauseManager.SetPause(true);        
 
         countdown.Initialize(FinishCountdown);
         countdown.Show();
         countdown.StartCountdown();
     }
-    #endregion
 
-    #region PRIVATE_METHODS
     private void StartGame()
     {
         pauseManager.SetCanPause(true);
@@ -96,5 +93,4 @@ public class GameManager : MonoBehaviour
         pauseManager.SetPause(false);
         StartGame();
     }
-    #endregion
 }

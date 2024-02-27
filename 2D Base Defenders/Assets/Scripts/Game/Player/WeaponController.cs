@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public enum EFFECT_TYPE
 
 public class WeaponController : MonoBehaviour
 {
+    public static WeaponController Instance = null;
+
     [SerializeField] private Gun[] gunsInventory = null;
     [SerializeField] private Gun selectedGun = null;
     [SerializeField] private GunTrail trail = null;
@@ -23,13 +26,25 @@ public class WeaponController : MonoBehaviour
     private float nextFireTime = 0f;
     private float fireRate = 1f;
 
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Init()
     {
-        currentWeaponIndex = 0;
+        currentWeaponIndex = -1;
 
         SetupWeapons();
 
-        SelectGun(currentWeaponIndex);
+        SelectGunByIndex(0);
 
         canShoot = true;
 
@@ -51,6 +66,54 @@ public class WeaponController : MonoBehaviour
         {
             selectedGun.StartReloading();
         }
+    }
+
+    public void SelectGunByReference(Gun selectedGun)
+    {
+        if(gunsInventory[currentWeaponIndex] == selectedGun)
+        {
+            return;
+        }
+
+        if(!selectedGun.IsUnlocked)
+        {
+            return;
+        }
+
+        int index = Array.IndexOf(gunsInventory, selectedGun);
+
+        SelectGun(index);
+    }
+
+    private void SelectGunByIndex(int index)
+    {
+        if (currentWeaponIndex == index)
+        {
+            return;
+        }
+
+        if (!gunsInventory[index].IsUnlocked)
+        {
+            return;
+        }
+
+        SelectGun(index);
+    }
+
+    private void SelectGun(int index)
+    {
+        if(currentWeaponIndex >= 0)
+        {
+            gunsInventory[currentWeaponIndex].Hide();
+        }        
+
+        selectedGun = gunsInventory[index];
+
+        fireRate = selectedGun.FireRate;
+
+        gunsInventory[index].Show();
+
+        currentWeaponIndex = index;
     }
 
     private float GetAngleFromVectorFloat(Vector3 direction)
@@ -128,43 +191,18 @@ public class WeaponController : MonoBehaviour
             gunsInventory[i].Init(SpawnTrail, SpawnParticlesEffect);
             gunsInventory[i].Hide();
         }
-
-        gunsInventory[0].IsUnlocked = true;
-    }
-
-    private void SelectGun(int index)
-    {
-        if (currentWeaponIndex == index)
-        {
-            return;
-        }
-
-        if (!gunsInventory[index].IsUnlocked)
-        {
-            return;
-        }        
-
-        gunsInventory[currentWeaponIndex].Hide();
-
-        selectedGun = gunsInventory[index];
-
-        fireRate = selectedGun.FireRate;
-
-        gunsInventory[index].Show();
-
-        currentWeaponIndex = index;
-    }
+    }    
 
     private void ChangeWeapon()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SelectGun(0);
+            SelectGunByIndex(0);
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SelectGun(1);
+            SelectGunByIndex(1);
         }
     }
 }
