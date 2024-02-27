@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Barricade barricade = null;
     [SerializeField] private WeaponController weaponController = null;
     [SerializeField] private PlayerController playerController = null;
-    [SerializeField] private PauseManager pauseManager = null;
+    [SerializeField] private PauseController pauseManager = null;
     [SerializeField] private FeedbackManager feedbackManager = null;
 
     [Space, Header("UI")]

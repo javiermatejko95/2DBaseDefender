@@ -16,6 +16,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private bool isReloading = false;
     [SerializeField] private int damage = 10;
+    [SerializeField] private bool isUnlocked = false;
 
     [Space, Header("Animation")]
     [SerializeField] private Animator animator = null;
@@ -24,6 +25,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private string animDefault = "player_shoot_idle_";
 
     public float FireRate { get => fireRate; }
+    public bool IsUnlocked { get => isUnlocked; set => isUnlocked = value; }
 
     private int currentAmmo = 10;
 
@@ -62,7 +64,7 @@ public class Gun : MonoBehaviour
 
         Vector3 direction = shootingPos.right;
 
-        AudioManager.Instance.PlaySound(shootClip);
+        AudioController.Instance.PlaySound(shootClip);
 
         float distance = Vector2.Distance(shootPos, mousePos);
 
@@ -107,7 +109,7 @@ public class Gun : MonoBehaviour
 
         animator.SetTrigger(triggerReloadName);
 
-        AudioManager.Instance.PlaySound(reloadClip);
+        AudioController.Instance.PlaySound(reloadClip);
     }
 
     private void Reload()

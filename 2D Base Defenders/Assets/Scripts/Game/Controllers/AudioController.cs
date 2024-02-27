@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioController : MonoBehaviour
 {
     #region STATIC
-    public static AudioManager Instance = null;
+    public static AudioController Instance = null;
     #endregion
 
     #region EXPOSED_FIELDS

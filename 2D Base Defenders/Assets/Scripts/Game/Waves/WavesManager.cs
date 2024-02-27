@@ -45,7 +45,7 @@ public class WavesManager : MonoBehaviour
 
         barricade = Barricade.instance;
 
-        PauseManager.instance.AddCallbackOnPause(ChangeSpawningState);
+        PauseController.Instance.AddCallbackOnPause(ChangeSpawningState);
     }
     #endregion
 

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         canMove = true;
 
-        PauseManager.instance.AddCallbackOnPause(SetCanMove);
+        PauseController.Instance.AddCallbackOnPause(SetCanMove);
     }
     #endregion
 

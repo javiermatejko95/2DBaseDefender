@@ -33,7 +33,7 @@ public class WeaponController : MonoBehaviour
 
         canShoot = true;
 
-        PauseManager.instance.AddCallbackOnPause(ChangeState);
+        PauseController.Instance.AddCallbackOnPause(ChangeState);
     }
 
     private void Update()
@@ -128,10 +128,22 @@ public class WeaponController : MonoBehaviour
             gunsInventory[i].Init(SpawnTrail, SpawnParticlesEffect);
             gunsInventory[i].Hide();
         }
+
+        gunsInventory[0].IsUnlocked = true;
     }
 
     private void SelectGun(int index)
     {
+        if (currentWeaponIndex == index)
+        {
+            return;
+        }
+
+        if (!gunsInventory[index].IsUnlocked)
+        {
+            return;
+        }        
+
         gunsInventory[currentWeaponIndex].Hide();
 
         selectedGun = gunsInventory[index];

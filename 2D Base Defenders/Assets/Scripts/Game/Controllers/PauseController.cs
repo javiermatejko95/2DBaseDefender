@@ -5,11 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PauseManager : MonoBehaviour
+public class PauseController : MonoBehaviour
 {
-    public static PauseManager instance = null;
+    public static PauseController Instance = null;
 
-    #region EXPOSED_FIELDS
     [SerializeField] private GameObject menuPause = null;
 
     [SerializeField] private Button buttonResume = null;
@@ -18,19 +17,15 @@ public class PauseManager : MonoBehaviour
 
     [Space, Header("Scenes")]
     [SerializeField] private string backScene = "Menu";
-    #endregion
 
-    #region PRIVATE_FIELDS
     private bool isOnPause = false;
     private bool canPause = false;
 
     private Action<bool> onPause = null;
-    #endregion
 
-    #region INIT
     public void Init()
     {
-        instance = this;
+        Instance = this;
 
         isOnPause = false;
         canPause = true;
@@ -40,9 +35,7 @@ public class PauseManager : MonoBehaviour
         buttonResume.onClick.AddListener(OnResume);
         buttonMenuBack.onClick.AddListener(OnMenuBack);
     }
-    #endregion
 
-    #region UNITY_CALLS
     private void Update()
     {
         if(!canPause)
@@ -56,9 +49,7 @@ public class PauseManager : MonoBehaviour
             ChangeState(isOnPause);
         }
     }
-    #endregion
 
-    #region PUBLIC_METHODS
     public void AddCallbackOnPause(Action<bool> onPause)
     {
         this.onPause += onPause;
@@ -78,9 +69,7 @@ public class PauseManager : MonoBehaviour
     {
         canPause = state;
     }
-    #endregion
 
-    #region PRIVATE_METHODS
     private void ChangeState(bool state)
     {
         menuPause.SetActive(state);
@@ -97,5 +86,4 @@ public class PauseManager : MonoBehaviour
     {
         SceneManager.LoadScene(backScene);
     }
-    #endregion
 }

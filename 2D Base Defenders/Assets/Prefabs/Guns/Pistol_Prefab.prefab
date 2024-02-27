@@ -349,6 +349,7 @@ MonoBehaviour:
   fireRate: 0
   isReloading: 0
   damage: 25
+  isUnlocked: 1
   animator: {fileID: 8703501242869116827}
   triggerShootName: shoot
   triggerReloadName: reload

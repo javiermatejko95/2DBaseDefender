@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float attackRate = 1f;
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int coinsDropAmount = 10;
 
     [SerializeField] private AudioClip impactClip = null;
 
@@ -57,7 +58,7 @@ public class EnemyController : MonoBehaviour
 
         healthAmount = maxHealth;
 
-        PauseManager.instance.AddCallbackOnPause(ChangeState);
+        PauseController.Instance.AddCallbackOnPause(ChangeState);
     }
 
     public void Toggle(bool status)
@@ -77,12 +78,13 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        AudioManager.Instance.PlaySound(impactClip);
+        AudioController.Instance.PlaySound(impactClip);
 
         healthAmount -= damage;
 
         if(healthAmount <= 0)
         {
+            EconomyController.Instance.TotalCoins += coinsDropAmount;
             onDeath?.Invoke();
             ForceDestroy();
         }        
@@ -90,7 +92,7 @@ public class EnemyController : MonoBehaviour
 
     public void ForceDestroy()
     {
-        PauseManager.instance.RemoveCallbackOnPause(ChangeState);
+        PauseController.Instance.RemoveCallbackOnPause(ChangeState);
         Destroy(gameObject);
     }
 
